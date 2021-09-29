@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+    <style>
+      picture {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 200px;
+      }
+      img {
+        border-radius: 50%;
+        box-shadow: 0 0 20px #999;
+      }
+      img.disabled {
+        opacity: 0.3;
+      }
+    </style>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Script type necesary, more information in https://reactjs.org/docs/add-react-to-a-website.html#quickly-try-jsx -->
+    <script type="text/babel">
+      const app = document.getElementById("app");
+
+      // To test an example uncomment it and keep the others commented
+
+      // Javascript Component
+
+      function Avatar(params) {
+        return `
+          <picture>
+            <img src="https://rickandmortyapi.com/api/character/avatar/${params.id}.jpeg"></img>
+            <strong>${params.name}</strong>
+          </picture>
+        `;
+      }
+
+      app.innerHTML += Avatar({ id: 1, name: "Rick" });
+      app.innerHTML += Avatar({ id: 2, name: "Morty" });
+
+      app.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("click", () => {
+          img.classList.toggle("disabled");
+        });
+      });
+
+      /*
+        // React component without Babel
+
+            const h = React.createElement;
+
+            function Avatar(props) {
+              const src = `https://rickandmortyapi.com/api/character/avatar/${props.id}.jpeg`;
+              return h("img", { src });
+            }
+
+            ReactDOM.render(h(Avatar, { id: 1 }), app);
+
+      */
+
+      /* 
+      // React component using Babel
+
+      function Avatar(props) {
+        const src = `https://rickandmortyapi.com/api/character/avatar/${props.id}.jpeg`;
+
+        const clickHandler = () => {
+          alert(`Hello! My name is ${props.name}`);
+        };
+
+        return (
+          <picture>
+            <img onClick={clickHandler} src={src} />
+            <strong>{props.name}</strong>
+          </picture>
+        );
+      }
+
+      ReactDOM.render(<Avatar id={1} name="Rick" />, app); 
+*/
+    </script>
+  </body>
+</html>
